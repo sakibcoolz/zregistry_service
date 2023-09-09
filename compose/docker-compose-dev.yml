@@ -1,0 +1,27 @@
+version: '3'
+services:
+  zregistry-service:
+    image: ${service}
+    hostname: ${domain}.${host}
+    container_name: ${domain}.${host}
+    ports:
+      - ${port}:${port}
+    environment:
+      - DATABASE=${database} 
+      - DBHOST=${dbdomain}.${host} 
+      - DBPORT=${dbport} 
+      - DBUSER=${dbuser}
+      - DBPASS=${dbpassword}
+      - SERVICEHOST=${domain}.${host}
+      - SERVICEPORT=${port}
+      - APP_NAME=${service}
+      - HIVEMQ=${hivedomain}.${host}:${hiveport}
+      - HUSERNAME=${husername}
+      - HPASSWORD=${hpassword}
+      - HCLIENT=${clientid}
+      - HTOPIC=${htopic}
+      - SECRETKEY=${secretkey}
+    tty: true
+networks:
+  backend:
+    driver: bridge
