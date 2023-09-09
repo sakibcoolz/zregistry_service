@@ -29,7 +29,7 @@ func (s *Service) RegisterDevice(ctx *gin.Context, deviceinfo model.DeviceInfo) 
 		return "", handler.InternalError(ctx, errs, s.log)
 	}
 
-	deviceinfo.Keys = str
+	deviceinfo.DeviceKey = str
 	deviceinfo.Status = literals.ACTIVE
 	deviceinfo.ExpiryDate = time.Now().Add(time.Duration(3) * 24 * time.Hour)
 
@@ -45,7 +45,7 @@ func (s *Service) RegisterDevice(ctx *gin.Context, deviceinfo model.DeviceInfo) 
 func (s *Service) deviceInfoValidation(ctx *gin.Context, deviceinfo model.DeviceInfo) error {
 	var err error
 
-	if deviceinfo.UserMasterID == 0 || deviceinfo.Hostname == "" || deviceinfo.Types == "" {
+	if deviceinfo.UserMasterID == 0 || deviceinfo.Hostname == "" || deviceinfo.Platform == "" {
 		err = errors.New("validation failed for device_info")
 		s.log.Error("error on ", zap.Error(err))
 	}

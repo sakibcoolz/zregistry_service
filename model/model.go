@@ -53,7 +53,7 @@ type DeviceInfo struct {
 	UserMasterID uint      `gorm:"column:user_master_id" json:"user_master_id,omitempty"`
 	Hostname     string    `gorm:"column:hostname" json:"hostname,omitempty"`
 	DeviceKey    string    `gorm:"column:device_key;index:idx_keys,unique,priority:1" json:"device_key,omitempty"`
-	Types        string    `gorm:"types" json:"types,omitempty"`
+	Platform     string    `gorm:"platform" json:"platform,omitempty"`
 	OS           string    `gorm:"os" json:"os,omitempty"`
 	Status       string    `gorm:"status" json:"status,omitempty"`
 	ExpiryDate   time.Time `gorm:"expiry_date" json:"expiry_date,omitempty"`
