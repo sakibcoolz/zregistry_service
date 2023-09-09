@@ -17,6 +17,7 @@ type IStore interface {
 	Registry(ctx *gin.Context, Tenent model.TenantMaster, users model.UserMaster) error
 	Login(ctx *gin.Context, login model.Login) (model.UserMaster, error)
 	GetTenant(ctx *gin.Context, id uint) (model.TenantMaster, error)
+	RegisterDevice(ctx *gin.Context, deviceinfo model.DeviceInfo) error
 }
 
 func NewStore(logger *zap.Logger, db *gorm.DB) *Store {

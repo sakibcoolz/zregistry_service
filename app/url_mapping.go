@@ -9,6 +9,7 @@ import (
 	"zregistry_service/controller"
 	"zregistry_service/database"
 	"zregistry_service/domain"
+	"zregistry_service/middleware"
 	"zregistry_service/service"
 
 	"github.com/gin-gonic/gin"
@@ -36,25 +37,19 @@ func Apps(config *config.Configuration, logger *zap.Logger, router *gin.Engine) 
 
 	controller := controller.NewController(logger, service)
 
-	// Configure CORS middleware with custom options
-	// configs := cors.Config{
-	// 	AllowOrigins: []string{"*"},
-	// 	AllowMethods: []string{"GET", "POST", "PUT", "DELETE"},
-	// 	AllowHeaders: []string{"Content-Type"},
-	// 	// ExposeHeaders:    []string{"Content-Length"},
-	// 	AllowCredentials: true,
-	// 	MaxAge:           12 * time.Hour,
-	// }
-
-	// router.Use(cors.New(configs))
-
 	router.Use(gin.Recovery())
 
-	approute := router.Group(fmt.Sprintf("/%s", config.GetService().Name))
+	preapproute := router.Group(fmt.Sprintf("/%s", config.GetService().Name))
 
-	approute.POST("/register", controller.Register)
+	preapproute.POST("/register", controller.Register)
 
-	approute.POST("/login", controller.Login)
+	preapproute.POST("/login", controller.Login)
+
+	approuter := router.Group("/apps")
+
+	approuter.Use(middleware.JwtMiddlewares(logger))
+
+	approuter.POST("/setdevice", controller.RegisterDevice)
 
 	return router
 }

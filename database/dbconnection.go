@@ -33,5 +33,9 @@ func Connection(configdb *config.Database) *DBInstance {
 }
 
 func Migrations(db *gorm.DB) error {
-	return db.AutoMigrate(&model.TenantMaster{}, &model.UserMaster{}, &model.Contact{})
+	return db.AutoMigrate(
+		&model.TenantMaster{},
+		&model.UserMaster{},
+		&model.Contact{},
+		&model.DeviceInfo{})
 }

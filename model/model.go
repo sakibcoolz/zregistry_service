@@ -23,14 +23,15 @@ type TenantMaster struct {
 // User AS in User / Device
 type UserMaster struct {
 	gorm.Model
-	TenantMasterID uint      `gorm:"column:tenant_master_id;index:idx_member,unique,priority:1" json:"tenant_master_id,omitempty"`
-	Name           string    `gorm:"column:name" json:"name,omitempty"`
-	Username       string    `gorm:"column:username;index:idx_member,unique,priority:2" json:"username,omitempty"`
-	ExpiryDate     time.Time `gorm:"column:expiry_date" json:"expiry_date,omitempty"`
-	UserType       string    `gorm:"column:user_type" json:"user_type,omitempty"`
-	Password       string    `gorm:"column:password" json:"password,omitempty"`
-	Address        string    `gorm:"column:address" json:"address,omitempty"`
-	Contacts       []Contact `json:"contacts,omitempty"`
+	TenantMasterID uint         `gorm:"column:tenant_master_id;index:idx_member,unique,priority:1" json:"tenant_master_id,omitempty"`
+	Name           string       `gorm:"column:name" json:"name,omitempty"`
+	Username       string       `gorm:"column:username;index:idx_member,unique,priority:2" json:"username,omitempty"`
+	ExpiryDate     time.Time    `gorm:"column:expiry_date" json:"expiry_date,omitempty"`
+	UserType       string       `gorm:"column:user_type" json:"user_type,omitempty"`
+	Password       string       `gorm:"column:password" json:"password,omitempty"`
+	Address        string       `gorm:"column:address" json:"address,omitempty"`
+	Contacts       []Contact    `json:"contacts,omitempty"`
+	DeviceInfos    []DeviceInfo `json:"device_infos,omitempty"`
 }
 
 type Contact struct {
@@ -45,4 +46,15 @@ type Login struct {
 	Username string `json:"username,omitempty"`
 	Password string `json:"password,omitempty"`
 	Key      string `json:"key,omitempty"`
+}
+
+type DeviceInfo struct {
+	gorm.Model
+	UserMasterID uint      `gorm:"column:user_master_id" json:"user_master_id,omitempty"`
+	Hostname     string    `gorm:"column:hostname" json:"hostname,omitempty"`
+	Keys         string    `gorm:"column:keys;index:idx_keys,unique,priority:1" json:"keys,omitempty"`
+	Types        string    `gorm:"types" json:"types,omitempty"`
+	OS           string    `gorm:"os" json:"os,omitempty"`
+	Status       string    `gorm:"status" json:"status,omitempty"`
+	ExpiryDate   time.Time `gorm:"expiry_date" json:"expiry_date,omitempty"`
 }

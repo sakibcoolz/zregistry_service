@@ -6,4 +6,5 @@ const (
 	USERTYPE = "UserType"
 	CONTACTS = "Contacts"
 	COMPANY  = "CompanyName"
+	ACTIVE   = "ACTIVE"
 )

@@ -17,6 +17,7 @@ type Service struct {
 type IService interface {
 	Register(ctx *gin.Context, register model.Register) handler.ErrResp
 	Login(ctx *gin.Context, login model.Login) (string, handler.ErrResp)
+	RegisterDevice(ctx *gin.Context, deviceinfo model.DeviceInfo) (string, handler.ErrResp)
 }
 
 func NewService(logger *zap.Logger, store domain.IStore) *Service {
