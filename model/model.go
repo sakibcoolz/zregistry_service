@@ -52,7 +52,7 @@ type DeviceInfo struct {
 	gorm.Model
 	UserMasterID uint      `gorm:"column:user_master_id" json:"user_master_id,omitempty"`
 	Hostname     string    `gorm:"column:hostname" json:"hostname,omitempty"`
-	Keys         string    `gorm:"column:keys;index:idx_keys,unique,priority:1" json:"keys,omitempty"`
+	DeviceKey    string    `gorm:"column:device_key;index:idx_keys,unique,priority:1" json:"device_key,omitempty"`
 	Types        string    `gorm:"types" json:"types,omitempty"`
 	OS           string    `gorm:"os" json:"os,omitempty"`
 	Status       string    `gorm:"status" json:"status,omitempty"`
